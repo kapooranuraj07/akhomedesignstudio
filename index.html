@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AK Home Design Studio | Elite Architecture</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            /* 20Cr Dark Luxury Palette */
+            --bg-obsidian: #090A0C; /* Deepest Architectural Black */
+            --bg-charcoal: #121418; /* Rich Dark Grey for Cards */
+            --text-light: #F8F9FA; /* Crisp Off-White */
+            --text-muted: #9CA3AF; /* Elegant Silver/Grey */
+            --gold-bronze: #C5A059; /* Expensive Metallic Bronze */
+            --gold-hover: #D4B26A;
+            --border-dark: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(18, 20, 24, 0.7);
+            
+            --transition-smooth: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            --shadow-glow: 0 10px 40px -10px rgba(197, 160, 89, 0.15);
+            --shadow-float: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            background-color: var(--bg-obsidian);
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Elegant Scrollbar --- */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-obsidian); }
+        ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold-bronze); }
+
+        /* --- Elite Top Bar --- */
+        .top-bar {
+            background-color: #000; color: var(--text-muted);
+            padding: 10px 5%; display: flex; justify-content: space-between;
+            align-items: center; font-size: 12px; font-weight: 500; letter-spacing: 1px;
+            border-bottom: 1px solid var(--border-dark);
+        }
+        .top-bar-left { display: flex; gap: 30px; align-items: center; }
+        .top-bar-left i { color: var(--gold-bronze); margin-right: 8px; font-size: 14px; }
+        .top-bar-left a { color: var(--text-muted); text-decoration: none; transition: 0.3s; }
+        .top-bar-left a:hover { color: var(--gold-bronze); }
+
+        /* --- Glassmorphism Header --- */
+        header {
+            position: sticky; top: 0; width: 100%; padding: 25px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; background: rgba(9, 10, 12, 0.85);
+            backdrop-filter: blur(15px); border-bottom: 1px solid transparent;
+            transition: var(--transition-smooth);
+        }
+        header.scrolled {
+            padding: 15px 5%; border-bottom: 1px solid var(--border-dark);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        
+        .brand-logo {
+            font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 600;
+            text-decoration: none; color: var(--text-light);
+            display: flex; flex-direction: column; line-height: 1.1; letter-spacing: 1px;
+        }
+        .brand-logo span {
+            font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 600;
+            letter-spacing: 5px; color: var(--gold-bronze); text-transform: uppercase;
+        }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 45px; }
+        nav ul li a {
+            text-decoration: none; color: var(--text-light); font-size: 13px; font-weight: 500;
+            text-transform: uppercase; letter-spacing: 2px; transition: color 0.3s; position: relative;
+        }
+        nav ul li a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px;
+            background: var(--gold-bronze); transition: width 0.3s ease;
+        }
+        nav ul li a:hover { color: var(--gold-bronze); }
+        nav ul li a:hover::after { width: 100%; }
+
+        /* --- Cinematic Hero Section --- */
+        .hero {
+            position: relative; height: 90vh; min-height: 700px;
+            display: flex; align-items: center; padding: 0 5%; overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2500&auto=format&fit=crop') center/cover;
+            z-index: -2; transform: scale(1.05); animation: slowZoom 20s infinite alternate linear;
+        }
+        @keyframes slowZoom { from { transform: scale(1); } to { transform: scale(1.1); } }
+        
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, rgba(9,10,12,0.95) 0%, rgba(9,10,12,0.6) 50%, rgba(9,10,12,0.1) 100%);
+            z-index: -1;
+        }
+        .hero-content { position: relative; z-index: 2; max-width: 800px; }
+        .hero-badge {
+            display: inline-block; font-size: 11px; font-weight: 600; color: var(--gold-bronze);
+            text-transform: uppercase; letter-spacing: 4px; margin-bottom: 25px;
+            border-left: 2px solid var(--gold-bronze); padding-left: 15px;
+        }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif; font-size: clamp(45px, 6vw, 85px);
+            font-weight: 600; line-height: 1.1; color: var(--text-light); margin-bottom: 30px;
+        }
+        .hero-content p {
+            font-size: 18px; color: var(--text-muted); margin-bottom: 40px; max-width: 600px; line-height: 1.9;
+        }
+
+        /* --- Studio Statistics Bar --- */
+        .stats-bar {
+            background: var(--bg-charcoal); border-top: 1px solid var(--border-dark);
+            border-bottom: 1px solid var(--border-dark); padding: 40px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .stat-item { text-align: center; width: 25%; border-right: 1px solid var(--border-dark); }
+        .stat-item:last-child { border-right: none; }
+        .stat-item h3 { font-family: 'Playfair Display', serif; font-size: 40px; color: var(--gold-bronze); font-weight: 600; }
+        .stat-item p { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-top: 5px; }
+
+        /* --- Interactive About Section --- */
+        .about-section {
+            padding: 150px 5%; display: flex; align-items: center; gap: 80px;
+        }
+        .about-image-wrapper {
+            width: 50%; position: relative; border-radius: 4px; overflow: hidden;
+        }
+        .about-image {
+            width: 100%; height: 650px; object-fit: cover;
+            filter: brightness(0.85); transition: var(--transition-smooth);
+        }
+        .about-image-wrapper:hover .about-image { filter: brightness(1); transform: scale(1.03); }
+        
+        .about-text { width: 50%; }
+        .about-text h2 { font-family: 'Playfair Display', serif; font-size: 50px; font-weight: 600; margin-bottom: 30px; line-height: 1.1; }
+        .about-text p { font-size: 16px; color: var(--text-muted); margin-bottom: 25px; line-height: 1.9; }
+        
+        /* --- Expansive Services Grid --- */
+        .services { padding: 120px 5%; background: var(--bg-charcoal); }
+        .section-header { text-align: center; margin-bottom: 80px; }
+        .section-header h2 { font-family: 'Playfair Display', serif; font-size: 50px; font-weight: 600; }
+        .section-header p { color: var(--gold-bronze); font-weight: 500; text-transform: uppercase; letter-spacing: 3px; font-size: 11px; margin-top: 15px; }
+        
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .service-card {
+            position: relative; height: 450px; border-radius: 4px; overflow: hidden;
+            background: #000; cursor: pointer;
+        }
+        .service-img {
+            width: 100%; height: 100%; background-size: cover; background-position: center;
+            opacity: 0.6; transition: var(--transition-smooth);
+        }
+        .service-card:hover .service-img { opacity: 0.3; transform: scale(1.1); }
+        
+        .service-content {
+            position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px;
+            background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+            transition: var(--transition-smooth); transform: translateY(20px);
+        }
+        .service-card:hover .service-content { transform: translateY(0); }
+        .service-content h3 { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600; margin-bottom: 10px; color: var(--gold-bronze); }
+        .service-content p { font-size: 14px; color: var(--text-muted); opacity: 0; transition: 0.5s; height: 0; overflow: hidden; }
+        .service-card:hover .service-content p { opacity: 1; height: auto; margin-top: 15px; }
+
+        /* --- The Architectural Process Timeline --- */
+        .process { padding: 150px 5%; background: var(--bg-obsidian); }
+        .process-container { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 50px; position: relative; }
+        .process-container::before {
+            content: ''; position: absolute; top: 30px; left: 0; width: 100%; height: 1px;
+            background: var(--border-dark); z-index: 1;
+        }
+        .step { position: relative; z-index: 2; padding-top: 60px; }
+        .step-number {
+            position: absolute; top: 0; left: 0; width: 60px; height: 60px;
+            background: var(--bg-charcoal); border: 1px solid var(--gold-bronze);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-family: 'Playfair Display', serif; font-size: 24px; color: var(--gold-bronze);
+            box-shadow: var(--bg-obsidian) 0 0 0 10px;
+        }
+        .step h3 { font-size: 22px; font-family: 'Playfair Display', serif; margin-bottom: 15px; }
+        .step p { color: var(--text-muted); font-size: 15px; line-height: 1.8; }
+
+        /* --- Solid Premium Buttons --- */
+        .btn-gold {
+            display: inline-block; padding: 18px 40px; background: var(--gold-bronze);
+            color: #000; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+            text-decoration: none; transition: var(--transition-smooth);
+            border: 1px solid var(--gold-bronze); border-radius: 2px;
+        }
+        .btn-gold:hover { background: transparent; color: var(--gold-bronze); box-shadow: var(--shadow-glow); }
+        
+        .btn-outline {
+            display: inline-block; padding: 18px 40px; background: transparent;
+            color: var(--text-light); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+            text-decoration: none; transition: var(--transition-smooth);
+            border: 1px solid var(--border-dark); border-radius: 2px; margin-left: 15px;
+        }
+        .btn-outline:hover { border-color: var(--gold-bronze); color: var(--gold-bronze); }
+
+        /* --- Founder / Visionary --- */
+        .visionary {
+            padding: 150px 5%; text-align: center; background: var(--bg-charcoal);
+            border-top: 1px solid var(--border-dark); border-bottom: 1px solid var(--border-dark);
+        }
+        .visionary h4 { color: var(--gold-bronze); letter-spacing: 5px; text-transform: uppercase; font-size: 12px; margin-bottom: 20px; }
+        .visionary h2 { font-family: 'Playfair Display', serif; font-size: clamp(45px, 6vw, 70px); font-weight: 600; margin-bottom: 40px; }
+        .visionary p { max-width: 800px; margin: 0 auto; font-size: 18px; color: var(--text-muted); line-height: 2; }
+
+        /* --- Floating WhatsApp Button --- */
+        .float-wa {
+            position: fixed; width: 65px; height: 65px; bottom: 40px; right: 40px;
+            background-color: #25D366; color: #FFF; border-radius: 50px;
+            text-align: center; font-size: 35px; box-shadow: var(--shadow-float);
+            z-index: 10000; display: flex; align-items: center; justify-content: center;
+            text-decoration: none; transition: transform 0.3s;
+        }
+        .float-wa:hover { transform: scale(1.1); }
+
+        /* --- Grand Footer --- */
+        footer { padding: 100px 5% 40px; background: var(--bg-obsidian); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 60px; margin-bottom: 80px; }
+        .footer-col h4 { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; color: var(--gold-bronze); margin-bottom: 30px; }
+        .footer-col p, .footer-col a { color: var(--text-muted); font-size: 14px; text-decoration: none; display: block; margin-bottom: 15px; transition: color 0.3s; }
+        .footer-col a:hover { color: var(--text-light); }
+        .footer-bottom {
+            padding-top: 30px; border-top: 1px solid var(--border-dark);
+            display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase;
+        }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 1024px) {
+            .top-bar { flex-direction: column; gap: 15px; text-align: center; padding: 15px 5%; }
+            .hero { padding-top: 80px; height: auto; min-height: 80vh; }
+            .stats-bar { flex-wrap: wrap; }
+            .stat-item { width: 50%; border-bottom: 1px solid var(--border-dark); padding: 30px 0; }
+            .stat-item:nth-child(even) { border-right: none; }
+            .about-section { flex-direction: column; }
+            .about-image-wrapper, .about-text { width: 100%; }
+            .services-grid { grid-template-columns: 1fr; }
+            .process-container { grid-template-columns: 1fr; }
+            .process-container::before { display: none; }
+            .step { padding-top: 0; padding-left: 80px; margin-bottom: 40px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            nav ul { display: none; }
+            .btn-outline { margin-left: 0; margin-top: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <a href="tel:+917247676311"><i class="fa-solid fa-phone"></i> +91-72476-76311</a>
+            <a href="mailto:akhomedesignstudio@gmail.com"><i class="fa-solid fa-envelope"></i> akhomedesignstudio@gmail.com</a>
+        </div>
+        <div class="top-bar-right">
+            <span><i class="fa-solid fa-location-dot" style="color: var(--gold-bronze); margin-right: 5px;"></i> Nehru Nagar, Bhilai</span>
+        </div>
+    </div>
+
+    <header id="mainHeader">
+        <a href="#" class="brand-logo">AK Home <span>Design Studio</span></a>
+        <nav>
+            <ul>
+                <li><a href="#about">The Firm</a></li>
+                <li><a href="#services">Competencies</a></li>
+                <li><a href="#process">Process</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <a href="https://wa.me/917247676311" target="_blank" class="btn-gold" style="padding: 12px 25px;">Consult Us</a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1200">
+            <div class="hero-badge">Bhilai's Premier Architectural Firm</div>
+            <h1>Designing Timeless Indian Estates.</h1>
+            <p>Harmonizing ancient Vastu principles with unapologetic modern luxury. We engineer expansive, light-filled environments for the discerning homeowner.</p>
+            <div style="display: flex; flex-wrap: wrap;">
+                <a href="#portfolio" class="btn-gold">View Masterpieces</a>
+                <a href="tel:+917247676311" class="btn-outline">Call +91-72476-76311</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats-bar" data-aos="fade-up">
+        <div class="stat-item">
+            <h3>120+</h3>
+            <p>Masterpieces Delivered</p>
+        </div>
+        <div class="stat-item">
+            <h3>100%</h3>
+            <p>Vastu Compliant</p>
+        </div>
+        <div class="stat-item">
+            <h3>10+</h3>
+            <p>Years of Excellence</p>
+        </div>
+        <div class="stat-item">
+            <h3>Top 1%</h3>
+            <p>Design Firm in CG</p>
+        </div>
+    </div>
+
+    <section class="about-section" id="about">
+        <div class="about-image-wrapper" data-aos="fade-right">
+            <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1500&auto=format&fit=crop" alt="Luxury Interior" class="about-image">
+        </div>
+        <div class="about-text" data-aos="fade-left">
+            <div class="hero-badge">Studio Ethos</div>
+            <h2>Rooted in Heritage.<br>Built for the Future.</h2>
+            <p>At AK Home Design Studio, we do not merely build structures; we curate lifestyles. Based in Bhilai, our architecture harmonizes the sacred geometries of traditional Indian Vastu with unapologetic, modern minimalism.</p>
+            <p>From central courtyards that breathe natural light into the home, to rich teakwood and custom modular execution—every line drawn is a commitment to spatial poetry and supreme quality.</p>
+            <a href="#contact" class="btn-outline" style="margin-left: 0; margin-top: 20px;">Discover Our Approach</a>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Core Competencies</h2>
+            <p>End-to-End Architectural Solutions</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1000&auto=format&fit=crop');"></div>
+                <div class="service-content">
+                    <h3>Architectural Masterplanning</h3>
+                    <p>Transforming complex plot dimensions into mathematically perfect, 100% Vastu-oriented layouts that maximize natural light, ventilation, and majestic volume.</p>
+                </div>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=1000&auto=format&fit=crop');"></div>
+                <div class="service-content">
+                    <h3>3D Elevation & Facades</h3>
+                    <p>Crafting commanding structural facades that respond intelligently to the tropical Indian climate, utilizing overhangs, jali screens, and ultra-premium exterior cladding.</p>
+                </div>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1000&auto=format&fit=crop');"></div>
+                <div class="service-content">
+                    <h3>Bespoke Interior Execution</h3>
+                    <p>End-to-end interior styling, from advanced false ceiling lighting designs to custom modular kitchens, ensuring the inside of your home is as breathtaking as the outside.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="process" id="process">
+        <div class="section-header" data-aos="fade-up">
+            <h2>The Studio Process</h2>
+            <p>How We Execute Perfection</p>
+        </div>
+        <div class="process-container">
+            <div class="step" data-aos="fade-up" data-aos-delay="0">
+                <div class="step-number">01</div>
+                <h3>Spatial Diagnostics</h3>
+                <p>We begin with a deep analysis of your land. Plotting sun paths, wind directions, and strict Vastu grids to determine the absolute optimal footprint for your lifestyle.</p>
+            </div>
+            <div class="step" data-aos="fade-up" data-aos-delay="100">
+                <div class="step-number">02</div>
+                <h3>Volume & Void</h3>
+                <p>We craft 3D conceptual models focusing on massive volumes, double-height ceilings, and seamless transitions between indoor luxury and outdoor courtyards.</p>
+            </div>
+            <div class="step" data-aos="fade-up" data-aos-delay="200">
+                <div class="step-number">03</div>
+                <h3>Material Purity</h3>
+                <p>Executing the final vision using tactile, indigenous premium materials—ensuring the structure not only looks spectacular on day one, but ages gracefully for decades.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="visionary" id="visionary" data-aos="fade-in">
+        <h4>Founder & Lead Architect</h4>
+        <h2>Mr. Anuraj Kapoor</h2>
+        <p>With a profound understanding of spatial dynamics and an uncompromising commitment to quality, Mr. Anuraj Kapoor leads AK Home Design Studio with a singular vision. Rejecting ordinary, cluttered templates, his work champions the true definition of luxury: the emotional resonance of perfectly proportioned space.</p>
+    </section>
+
+    <a href="https://wa.me/917247676311" class="float-wa" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <footer id="contact">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="#" class="brand-logo" style="margin-bottom: 25px;">AK Home <span>Design Studio</span></a>
+                <p style="max-width: 300px;">Turning dreams into architectural legacies. We are Bhilai's premier choice for luxury architecture and bespoke interior execution.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Firm Navigation</h4>
+                <a href="#about">The Studio</a>
+                <a href="#services">Competencies</a>
+                <a href="#process">Our Process</a>
+                <a href="#portfolio">Selected Works</a>
+            </div>
+            <div class="footer-col">
+                <h4>Direct Contact</h4>
+                <a href="tel:+917247676311"><i class="fa-solid fa-phone" style="color: var(--gold-bronze); margin-right: 10px;"></i> +91-72476-76311</a>
+                <a href="mailto:akhomedesignstudio@gmail.com"><i class="fa-solid fa-envelope" style="color: var(--gold-bronze); margin-right: 10px;"></i> akhomedesignstudio@gmail.com</a>
+                <p style="margin-top: 15px;"><i class="fa-solid fa-location-dot" style="color: var(--gold-bronze); margin-right: 10px;"></i> Nehru Nagar, Bhilai, CG</p>
+            </div>
+            <div class="footer-col">
+                <h4>Start Your Project</h4>
+                <p>We accept a limited number of commissions per year to ensure absolute quality. Contact us today to discuss your vision.</p>
+                <a href="https://wa.me/917247676311" class="btn-gold" style="margin-top: 15px; text-align: center; display: block;">Message on WhatsApp</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>&copy; 2026 AK Home Design Studio. All Rights Reserved.</div>
+            <div>Crafted for Architectural Excellence.</div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // High-end scroll animations
+        AOS.init({ duration: 1000, once: true, offset: 50, easing: 'ease-out-cubic' });
+
+        // Glassmorphism Sticky Header Logic
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('mainHeader');
+            if (window.scrollY > 50) { 
+                header.classList.add('scrolled');
+            } else { 
+                header.classList.remove('scrolled'); 
+            }
+        });
+    </script>
+</body>
+</html>
